@@ -1,8 +1,11 @@
 import mongoose from "mongoose";
+import dotenv from 'dotenv';
+dotenv.config()
+
 import { CategoryModel } from "./category.schema";
 import { ProductModel } from "./product.schema";
 
-const MONGO_URI = "mongodb://127.0.0.1:27017/fele_fashions";
+const MONGO_URI = process.env.MONGO_URI || "";
 
 const seed = async () => {
     try {
