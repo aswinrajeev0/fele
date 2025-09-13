@@ -5,7 +5,8 @@ export const createProductSchema = z.object({
     price: z.number(),
     productImage: z.string().trim(),
     brand: z.string().trim(),
-    categoryId: z.string().trim()
+    categoryId: z.string().trim().optional(),
+    categoryName: z.string().trim().optional()
 })
 
 export type CreateProductDTO = z.infer<typeof createProductSchema>

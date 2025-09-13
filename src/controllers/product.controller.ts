@@ -7,7 +7,11 @@ import { Category, CategoryModel } from "../models/category.schema";
 export const addProduct = async(req: Request, res: Response, next: NextFunction) => {
     try {
         const productData = createProductSchema.parse(req.body);
-        await ProductModel.create(productData);
+        let category = await CategoryModel.findOne({name: productData.categoryName});
+        if(!category){
+            category = await CategoryModel.create({name: productData.categoryName});
+        }
+        await ProductModel.create({...productData, categoryId: category._id});
         res.status(HTTP_STATUS.CREATED).json({
             message: SUCCESS_MESSAGES.PRODUCT_SAVED
         })
